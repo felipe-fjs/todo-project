@@ -1,0 +1,5 @@
+{% if current_user.is_authenticated %}
+    <h1>Logado {{current_user.username}}</h1>
+{% else %}
+    <h1>Não logado</h1>
+{% endif}

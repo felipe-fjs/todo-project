@@ -11,8 +11,12 @@ def get_user(id_user):
     return User.query.filter_by(id=id_user).first()
 
 
-@entry_route.route('/', methods=['GET'])
-@entry_route.route('/login', methods=['GET'])
+@entry_route.route('/teste')
+def teste():
+    return render_template('entry/test-login.html')
+
+@entry_route.route('/', methods=['GET', 'POST'])
+@entry_route.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
         return render_template('entry/login.html')
@@ -21,9 +25,13 @@ def login():
             user = User.query.filter_by(username=request.form['username']).first()
             if user.verifyPass(request.form['pwd']):
                 login_user(user)
+                return redirect(url_for('entry.test'))
             else:
                 flash("Senha incorreta!")
                 return redirect(url_for('entry.login'))
+        else:
+            flash('Não existe usuário cadastrado com esse username!')
+            return redirect(url_for('entry.login'))
 
 @entry_route.route('/signup', methods=['GET', 'POST'])
 def signup():
