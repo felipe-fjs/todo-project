@@ -1,14 +1,29 @@
-from app import app, bcrypt, db
+from app import app, bcrypt, db, login_manager
 from app.models.user import User
 from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask_login import login_user
 
 entry_route = Blueprint('entry', __name__)
 
+
+@login_manager.user_loader
+def get_user(id_user):
+    return User.query.filter_by(id=id_user).first()
+
+
 @entry_route.route('/', methods=['GET'])
 @entry_route.route('/login', methods=['GET'])
-def login_form():
-    return render_template('entry/login.html')
-
+def login():
+    if request.method == 'GET':
+        return render_template('entry/login.html')
+    elif request.method == 'POST':
+        if User.query.filter_by(username=request.form['username']).first():
+            user = User.query.filter_by(username=request.form['username']).first()
+            if user.verifyPass(request.form['pwd']):
+                login_user(user)
+            else:
+                flash("Senha incorreta!")
+                return redirect(url_for('entry.login'))
 
 @entry_route.route('/signup', methods=['GET', 'POST'])
 def signup():

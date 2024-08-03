@@ -7,17 +7,27 @@
 </head>
 <body>
     <main>
-        <form action="">
-            <div>
-                <label for="username">Nome de usuário</label>
-                <input type="text" name="username" id="username">
-            </div>
-            <div>
-                <label for="password">Senha</label>
-                <input type="password" name="password" id="password">
-            </div>
-            <button type="submit">Entrar</button>
-        </form>
+        <section id="errors">
+            {% set messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        </section>
+        <section>
+            <form action="">
+                <div>
+                    <label for="username">Nome de usuário</label>
+                    <input type="text" name="username" id="username">
+                </div>
+                <div>
+                    <label for="pwd">Senha</label>
+                    <input type="password" name="pwd" id="pwd">
+                </div>
+                <button type="submit">Entrar</button>
+            </form>
+        </section>
     </main>
 </body>
 </html>
