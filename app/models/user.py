@@ -1,4 +1,4 @@
-from app import db
+from app import db, bcrypt
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -14,3 +14,5 @@ class User(db.Model):
     def __repr__(self):
         return {'id': self.id, 'username': self.username}
 
+    def verifyPass(self, pwd):
+        return bcrypt.check_password_hash(self.pwd, pwd)

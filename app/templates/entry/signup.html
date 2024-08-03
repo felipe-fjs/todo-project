@@ -13,20 +13,30 @@
 </head>
 <body>
     <main>
-        <form action="">
-            <div>
-                <label for="username">Nome de usuário</label>
-                <input type="text" name="username" id="username">
-            </div>
-            <div>
-                <label for="password">Sua senha</label>
-                <input type="password" name="password" id="password">
-                <label for="password-check">Sua senha</label>
-                <input type="password" id="password-check" onkeypress="verifyPass()">
-                <p id="pass-warning">As senhas devem ser iguais!</p>
-            </div>
-            <button type="button" disabled>Cadastrar-se</button>
-        </form>
+        <section id="conteiner-errors">
+            {% set messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        </section>
+        <section>
+            <form action="{{ url_for('entry.signup')}}" method="post">
+                <div>
+                    <label for="username">Nome de usuário</label>
+                    <input type="text" name="username" id="username">
+                </div>
+                <div>
+                    <label for="password">Sua senha</label>
+                    <input type="password" name="password" id="password">
+                    <label for="password-check">Sua senha</label>
+                    <input type="password" id="password-check" onkeypress="verifyPass()">
+                    <p id="pass-warning">As senhas devem ser iguais!</p>
+                </div>
+                <button type="submit" id="btn-submit" disabled>Cadastrar-se</button>
+            </form>
+        </section>
     </main>
 
     <script>
@@ -36,8 +46,10 @@
             const pass_warning = document.getElementById('pass-warning');
             if (password.value !== password_check.value) {
                 pass_warning.style.display = 'block';
+                document.getElementById('btn-submit').disabled = true
             } else {
                 pass_warning.style.display = 'none'
+                document.getElementById('btn-submit').disabled = false
             }
         }
         password_check.addEventListener('input',  verifyPass);
