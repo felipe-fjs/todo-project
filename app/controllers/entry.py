@@ -1,7 +1,7 @@
 from app import app, bcrypt, db, login_manager
 from app.models.user import User
 from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, login_required
 
 entry_route = Blueprint('entry', __name__)
 
