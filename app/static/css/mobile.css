@@ -80,22 +80,21 @@ section.form-conteiner > form input:focus-within {
 section.form-conteiner > form button{
     display: block;
     background-color: #5171A5;
-    color: white;
+    color: black;
     margin: auto;
-    width: 0px;
+    width: 80px;
     height: 25px;
     border: none;
     border-radius: 3px;
     cursor: pointer;
 }
-section.form-conteiner > form button#btn-signup {
-    width: 90px;
-    background-color: rgba(1, 123, 160, 0.527);
-}
 section.form-conteiner > form button:hover{
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.537);
-    background-color: rgb(1, 124, 160) ;
-    color: black;
+    background-color: darkblue ;
+    color: white;
+}
+section.form-conteiner > form button#btn-signup {
+    width: 120px;
 }
 
 section.form-conteiner > form a {
@@ -103,7 +102,7 @@ section.form-conteiner > form a {
     text-decoration: none;
     color: black;
 }
-section.form-conteiner > form a#signupt-a{
+section.form-conteiner > form a#signup-a{
     float: right;
 }
 section.form-conteiner > form a#forget-a{
@@ -120,7 +119,4 @@ section.form-conteiner > form a:hover {
 }
 section.form-conteiner > form a#forget-a:hover {
     color: red;
-}
-section.form-conteiner > form button#btn-signup {
-    width: 90px;
 }
