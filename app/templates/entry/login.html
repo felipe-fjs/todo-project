@@ -4,18 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Faça seu login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mobile.css')}}">
+    <link rel="stylesheet" href="../../static/css/mobile.css">
 </head>
 <body>
     <main>
-        <section id="errors">
-            {% set messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for message in messages %}
-                    <p>{{ message }}</p>
-                {% endfor %}
-            {% endif %}
-        </section>
-        <section>
+        <div id="div-img"></div>
+        <section id="form-conteiner">
+            <!-- <div id="errors">
+                {% set messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+            </div> -->
             <form action="{{ url_for('entry.login')}}" method="post">
                 <div>
                     <label for="username">Nome de usuário</label>
@@ -26,6 +29,10 @@
                     <input type="password" name="pwd" id="pwd">
                 </div>
                 <button type="submit">Entrar</button>
+                
+                <a href="#" id="signupt-a">Cadastre-se</a>
+                <a href="#" id="forget-a">Esqueci a senha</a>
+                
             </form>
         </section>
     </main>
