@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inscreva-se</title>
+    <link rel="stylesheet" href="../../static/css/mobile.css">
     <style>
         p#pass-warning {
             display: none;
@@ -13,15 +14,16 @@
 </head>
 <body>
     <main>
-        <section id="conteiner-errors">
+        <div id="div-img"></div>
+        <!-- <section id="conteiner-errors">
             {% set messages = get_flashed_messages() %}
             {% if messages %}
                 {% for message in messages %}
                     <p>{{ message }}</p>
                 {% endfor %}
             {% endif %}
-        </section>
-        <section>
+        </section> -->
+        <section class="form-conteiner">
             <form action="{{ url_for('entry.signup')}}" method="post">
                 <div>
                     <label for="username">Nome de usuário</label>
@@ -30,11 +32,14 @@
                 <div>
                     <label for="password">Sua senha</label>
                     <input type="password" name="password" id="password">
+                </div>
+                <div>
                     <label for="password-check">Sua senha</label>
                     <input type="password" id="password-check" onkeypress="verifyPass()">
                     <p id="pass-warning">As senhas devem ser iguais!</p>
                 </div>
-                <button type="submit" id="btn-submit" disabled>Cadastrar-se</button>
+                <button type="submit" id="btn-signup" disabled>Cadastrar-se</button>
+                <a href="#" id="login-a">Possui conta? Faça login</a>
             </form>
         </section>
     </main>
@@ -49,7 +54,7 @@
                 document.getElementById('btn-submit').disabled = true
             } else {
                 pass_warning.style.display = 'none'
-                document.getElementById('btn-submit').disabled = false
+                document.getElementById('btn-signup').disabled = false
             }
         }
         password_check.addEventListener('input',  verifyPass);
