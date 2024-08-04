@@ -4,16 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inscreva-se</title>
+    <link rel="stylesheet" href="../../static/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../static/css/mobile.css">
-    <style>
-        p#pass-warning {
-            display: none;
-            color: red;
-        }
-    </style>
+    <link rel="stylesheet" href="../../static/css/media-queries.css">
 </head>
 <body>
-    <main>
+    <main id="main">
         <div id="div-img"></div>
         <!-- <section id="conteiner-errors">
             {% set messages = get_flashed_messages() %}
@@ -35,7 +31,7 @@
                 </div>
                 <div>
                     <label for="password-check">Sua senha</label>
-                    <input type="password" id="password-check" onkeypress="verifyPass()">
+                    <input type="password" id="password-check">
                     <p id="pass-warning">As senhas devem ser iguais!</p>
                 </div>
                 <button type="submit" id="btn-signup" disabled>Cadastrar-se</button>
