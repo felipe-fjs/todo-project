@@ -13,9 +13,9 @@
             - front
             - back
             - modelo WTFORM
-                - criado
+                - criado 🆗
                 - aplicado
-            - modelo SQLAlchemy
+            - modelo SQLAlchemy 🆗
         - Read tasks (home)
             - front
             - back

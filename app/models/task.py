@@ -1,10 +1,12 @@
 from app import db
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, SubmitField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, Length
 
 
 class Task(db.Model):
+    __tablename__ = 'tasks'
+
     id = db.Column(db.Integer(), primary_key=True)
     title = db.Column(db.String(120), nullable=False)
     content = db.Column(db.String(), nullable=False)
@@ -18,4 +20,10 @@ class Task(db.Model):
 
     def __repr__(self):
         return {'id': self.id, 'title': self.title, 'content': self.content, 'user_id': self.user_id, 'pendent': self.pendent}
+
+
+class TaskForm(FlaskForm):
+    title = StringField('Título', validators=[DataRequired(), Length(min=10)])
+    content = TextAreaField('Conteúdo', validators=[DataRequired(), Length])
+    submit = SubmitField()
 
