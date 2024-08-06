@@ -10,7 +10,7 @@
 
     * página CRUD
         - Create tasks
-            - front
+            - front ♾️
             - back
             - modelo WTFORM
                 - criado 🆗

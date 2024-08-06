@@ -10,7 +10,7 @@
 <body>
     <main>
         <section>
-            <form action="{{ url_for()}}" method="post">
+            <form action="{{ url_for('tasks.create')}}" method="post">
                 <div>
                     <label for="title">Título</label>
                     <input type="text" name="title" id="title">
