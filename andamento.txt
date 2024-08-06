@@ -1,0 +1,26 @@
+"PASSO A PASSO" DO PROJETO
+
+    * login e signup
+            - model WTFORM
+            - model SQLAlchemy OK 🆗
+        - template e static OK🆗
+        - back end OK🆗
+
+    * página CRUD
+        - Create tasks
+            - front
+            - back
+            - modelo WTFORM
+            - modelo SQLAlchemy
+        - Read tasks (home)
+            - front
+            - back
+        - Update tasks
+            - front
+                - uso de fetch API
+            - back
+        - Delete tasks
+            - front
+                - uso de fetch API
+            - back
+    * páginação das tarefas registradas para não gerar "rolamento"
