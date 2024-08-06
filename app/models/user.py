@@ -15,7 +15,7 @@ class User(db.Model, UserMixin):
     def __init__(self, username, pwd):
         self.username = username
         self.pwd = pwd
-
+    
     def __repr__(self):
         return {'id': self.id, 'username': self.username}
 
