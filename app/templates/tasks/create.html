@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Criar tarefa</title>
+</head>
+<body>
+    <main>
+        <section>
+            <form action="{{ url_for()}}" method="post">
+                <div>
+                    <label for="title">Título</label>
+                    <input type="text" name="title" id="title">
+                </div>
+                <div>
+                    <label for="content">Tarefa</label>
+                    <textarea name="content" id="content" placeholder="Tarefa aqui..."></textarea>
+                </div>
+                <button type="submit">Criar Tarefa</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>
