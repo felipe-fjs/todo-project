@@ -24,6 +24,6 @@ class Task(db.Model):
 
 class TaskForm(FlaskForm):
     title = StringField('Título', validators=[DataRequired(), Length(min=10)])
-    content = TextAreaField('Conteúdo', validators=[DataRequired(), Length])
+    content = TextAreaField('Conteúdo', validators=[DataRequired(), Length(min=10)])
     submit = SubmitField()
 
