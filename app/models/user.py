@@ -1,5 +1,9 @@
 from app import db, bcrypt
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField
+from wtforms.validators import DataRequired, Length, EqualTo
 from flask_login import UserMixin
+
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -17,3 +21,17 @@ class User(db.Model, UserMixin):
 
     def verifyPass(self, pwd):
         return bcrypt.check_password_hash(self.pwd, pwd)
+
+
+class UserLoginForm(FlaskForm):
+    username = StringField('Nome de usuário', validators=[DataRequired(), Length(min=3, max=16)])
+    pwd = PasswordField('Senha', validators=[DataRequired(), Length(min=8, max=16)])
+    submit = SubmitField()
+
+
+class UserSignupForm(FlaskForm):
+    username = StringField('Nome de usuário', validators=[DataRequired(), Length(min=3, max=16)])
+    pwd = PasswordField('Senha', validators=[DataRequired(), Length(min=8, max=16)])
+    pwd_check = PasswordField(label='Repita a senha', validators=[DataRequired(), EqualTo('pwd')])
+    submit = SubmitField()
+

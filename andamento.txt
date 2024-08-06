@@ -1,7 +1,9 @@
 "PASSO A PASSO" DO PROJETO
 
     * login e signup
-            - model WTFORM
+            - model WTFORM🆗
+                - criado🆗
+                - aplicado
             - model SQLAlchemy OK 🆗
         - template e static OK🆗
         - back end OK🆗
@@ -11,12 +13,15 @@
             - front
             - back
             - modelo WTFORM
+                - criado
+                - aplicado
             - modelo SQLAlchemy
         - Read tasks (home)
             - front
             - back
         - Update tasks
-            - front
+            - front leitura
+            - front edição
                 - uso de fetch API
             - back
         - Delete tasks
