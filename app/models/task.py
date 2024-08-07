@@ -17,10 +17,9 @@ class Task(db.Model):
         self.title = title
         self.content = content
         self.user_id = user_id
-
+    
     def __repr__(self):
-        return {'id': self.id, 'title': self.title, 'content': self.content, 'user_id': self.user_id, 'pendent': self.pendent}
-
+        return str({'id': self.id, 'title': self.title, 'content': self.content})
 
 class TaskForm(FlaskForm):
     title = StringField('Título', validators=[DataRequired(), Length(min=10)])

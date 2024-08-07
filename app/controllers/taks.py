@@ -17,10 +17,11 @@ def home():
 @login_required
 def create():
     form = TaskForm()
-    if form.validate_on_submit() and form.is_submitted():
+    if form.is_submitted():
         new_task = Task(form.title.data, form.content.data, user_id=current_user.id)
+        print(new_task)
         db.session.add(new_task)
         db.session.commit()
-        return redirect(url_for('tasks.create'))
-    return render_template('tasks/create.html')
+        return redirect(url_for('tasks.home'))
+    return render_template('tasks/create.html', form=form)
 
