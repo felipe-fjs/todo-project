@@ -1,22 +1,119 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tarefas</title>
+    <link rel="stylesheet" href="../../static/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0%;
+            padding: 0%;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .task {
+            position: relative;
+
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: rgba(0, 255, 255, 0.31);
+            border: 1px solid rgb(0, 255, 255);
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.436);
+            margin: 10px 0 ;
+            
+            transition: box-shadow 0.3s;
+        }
+        .task p {
+            width: 90%;
+        }
+        .task:hover {
+            box-shadow: 2px 2px 5px black;
+        }
+        .task button {
+            position: absolute;
+            top: 50%;
+            right: 1%;
+            transform: translate(0, -50%);
+
+            background-color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+
+            transition: background-color 0.5s;
+        }
+        .task button:hover {
+            background-color: rgba(0, 128, 0, 0.556);
+        }
+        .task button:hover .material-symbols-outlined {
+            color: white;
+        }
+    </style>
 </head>
 <body>
-    <main>
-        <section>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Título</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-            </table>
-        </section>
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Tasks</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link"href="#">Home | listar tarefas</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Criar tarefa</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Alterar tarefa</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Excluir tarefa</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('entry.logout') }}">Sair</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+    <main class="container">
+        <div class="row justify-content-center">
+            <div class="md-col-6">
+                <h1>Tarefas existentes</h1>
+                {% if tasks %}
+                    {% for task in tasks %}
+
+                        <div class="task">
+                            <p>{{ task.title }} </p>
+                            <button type="button">
+                                <span class="material-symbols-outlined">check</span>
+                            </button>
+                        </div>
+                    {% endfor %}
+
+                {% else %}
+                    <h2 class="alert alert-warning">Não há tarefas cadastradas, crie novas em <a href="{{ url_for('tasks.create')}}">Criar tarefas</a></h2>
+                {% endif %}
+                
+        </div>
     </main>
+
+    <script src="../../static/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // function completed(url, task_id){
+        //     fetch(url, {
+        //         method: "PUT",
+        //         body: JSON.stringify(task_id=task_id),
+        //         headers: {
+        //             'Content-Type': 'application/json; charset = UTF-8'
+        //         }
+        //     })
+        // } 
+    </script>
 </body>
 </html>
