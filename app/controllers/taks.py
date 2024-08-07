@@ -6,6 +6,13 @@ from flask_login import login_required, current_user
 task_route = Blueprint("tasks", __name__)
 
 
+@task_route.route('/home')
+@login_required
+def home():
+    tasks = Task.query.filter_by(user_id=current_user.id).all()
+    return render_template('tasks/read.html', tasks=tasks)
+
+
 @task_route.route('/create', methods=['GET', 'POST'])
 @login_required
 def create():

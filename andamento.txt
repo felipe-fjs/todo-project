@@ -28,4 +28,8 @@
             - front
                 - uso de fetch API
             - back
+            
+    * rotas
+        - /tasks/completed/id : rota usada para dar conclusão a uma tareda
+
     * páginação das tarefas registradas para não gerar "rolamento"

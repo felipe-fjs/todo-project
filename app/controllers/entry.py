@@ -10,7 +10,7 @@ entry_route = Blueprint('entry', __name__)
 def get_user(id_user):
     return User.query.filter_by(id=id_user).first()
 
-
+@entry_route.route('/')
 @entry_route.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
@@ -20,7 +20,7 @@ def login():
             user = User.query.filter_by(username=request.form['username']).first()
             if user.verifyPass(request.form['pwd']):
                 login_user(user)
-                return redirect(url_for('entry.teste'))
+                return redirect(url_for('tasks.home'))
             else:
                 flash("Senha incorreta!")
                 return redirect(url_for('entry.login'))
@@ -29,10 +29,10 @@ def login():
             return redirect(url_for('entry.login'))
 
 
-@entry_route.route('/logout', methods=['POST'])
+@entry_route.route('/logout')
 def logout():
     logout_user()
-    return jsonify(status='ok', url=url_for("entry.login"))
+    return redirect(url_for("entry.login"))
 
 
 @entry_route.route('/signup', methods=['GET', 'POST'])
