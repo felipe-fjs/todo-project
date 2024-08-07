@@ -9,16 +9,16 @@
         - back end OK🆗
 
     * página CRUD
-        - Create tasks
-            - front ♾️
-            - back
+        - Create tasks🆗
+            - front 🆗
+            - back 🆗
             - modelo WTFORM
                 - criado 🆗
-                - aplicado
+                - aplicado 🆗
             - modelo SQLAlchemy 🆗
-        - Read tasks (home)
-            - front
-            - back
+        - Read tasks (home)🆗
+            - front 🆗
+            - back 🆗
         - Update tasks
             - front leitura
             - front edição
