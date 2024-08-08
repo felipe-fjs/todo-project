@@ -13,6 +13,19 @@
             box-sizing: border-box;
             font-family: Arial, Helvetica, sans-serif;
         }
+        html, body{
+            height: 100vh;
+            width: 100vw;
+            background-color: rgba(49, 94, 166);
+        }
+        main .bg-tasks{
+                width: 90vw;
+                margin-top: 10px;
+                background-color: white;
+                border-radius: 10px;
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.515);
+                height: 90vh;
+            }
         .task {
             position: relative;
 
@@ -24,6 +37,16 @@
             margin: 10px 0 ;
             
             transition: box-shadow 0.3s;
+        }
+        @media screen and (min-width:992px) {
+            main .bg-tasks{
+                width: 700px;
+                margin-top: 10px;
+                background-color: white;
+                border-radius: 10px;
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.515);
+                height: 90vh;
+            }
         }
         .task p {
             width: 90%;
@@ -82,7 +105,7 @@
     </nav>
     <main class="container">
         <div class="row justify-content-center">
-            <div class="md-col-6">
+            <div class="bg-tasks" onclick>
                 <h1>Tarefas existentes</h1>
                 {% if tasks %}
                     {% for task in tasks %}
@@ -98,7 +121,7 @@
                 {% else %}
                     <h2 class="alert alert-warning">Não há tarefas cadastradas, crie novas em <a href="{{ url_for('tasks.create')}}">Criar tarefas</a></h2>
                 {% endif %}
-                
+            </div>    
         </div>
     </main>
 
