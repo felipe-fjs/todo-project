@@ -11,12 +11,13 @@ class Task(db.Model):
     title = db.Column(db.String(120), nullable=False)
     content = db.Column(db.String(), nullable=False)
     user_id = db.Column(db.Integer(),  db.ForeignKey('users.id'),  nullable=False)
-    pendent = db.Column(db.Boolean(), nullable=False)
+    pendent = db.Column(db.Boolean())
 
     def __init__(self, title, content, user_id):
         self.title = title
         self.content = content
         self.user_id = user_id
+        self.pendent = 1
     
     def __repr__(self):
         return str({'id': self.id, 'title': self.title, 'content': self.content})

@@ -43,6 +43,7 @@
         }
         .task > a:hover {
             color: blue;
+            width: 90%;
         }
         @media screen and (min-width:992px) {
             main .bg-tasks{
@@ -53,9 +54,6 @@
                 box-shadow: 0 0 5px rgba(0, 0, 0, 0.515);
                 height: 90vh;
             }
-        }
-        .task p {
-            width: 90%;
         }
         .task:hover {
             box-shadow: 2px 2px 5px black;
@@ -118,7 +116,7 @@
 
                         <div class="task">
                             <a href="{{ url_for('tasks.read_task', id=task.id)}}">{{ task.title }} </a >
-                            <button type="button">
+                            <button type="button" onclick="completed('{{task.id}}', `{{url_for('tasks.completed', id=task.id)}}`)">
                                 <span class="material-symbols-outlined">check</span>
                             </button>
                         </div>
@@ -133,15 +131,15 @@
 
     <script src="../../static/js/bootstrap.bundle.min.js"></script>
     <script>
-        // function completed(url, task_id){
-        //     fetch(url, {
-        //         method: "PUT",
-        //         body: JSON.stringify(task_id=task_id),
-        //         headers: {
-        //             'Content-Type': 'application/json; charset = UTF-8'
-        //         }
-        //     })
-        // } 
+        function completed(url, task_id){
+            fetch(url, {
+                method: "PUT"
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+            })
+        } 
     </script>
 </body>
 </html>
