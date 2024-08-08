@@ -1,6 +1,6 @@
 from app import db
 from app.models.task import TaskForm, Task
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
 from flask_login import login_required, current_user
 
 task_route = Blueprint("tasks", __name__)
@@ -9,8 +9,20 @@ task_route = Blueprint("tasks", __name__)
 @task_route.route('/home')
 @login_required
 def home():
-    tasks = Task.query.filter_by(user_id=current_user.id).all()
-    return render_template('tasks/read.html', tasks=tasks)
+    tasks_pendent = Task.query.filter_by(user_id=current_user.id, pendent=1).all()
+    return render_template('tasks/read.html', tasks=tasks_pendent)
+
+
+@task_route.route('/<id>', methods=['PUT'])
+@login_required
+def completed(id):
+    if Task.query.filter_by(id=id).first():
+        task = Task.query.filter_by(id=id).first()
+        task.pendent = 0
+        db.session.commit()
+        return jsonify(status='completed')
+    else:
+        return jsonify(status='not-completed')
 
 
 @task_route.route('/create', methods=['GET', 'POST'])
