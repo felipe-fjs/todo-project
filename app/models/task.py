@@ -20,7 +20,7 @@ class Task(db.Model):
         self.pendent = 1
     
     def __repr__(self):
-        return str({'id': self.id, 'title': self.title, 'content': self.content})
+        return str({'id': self.id, 'title': self.title, 'content': self.content, 'pendente': self.pendent})
 
 class TaskForm(FlaskForm):
     title = StringField('Título', validators=[DataRequired(), Length(min=10)])
