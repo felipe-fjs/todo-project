@@ -1,6 +1,6 @@
 from app import db
 from app.models.task import TaskForm, Task
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_required, current_user
 
 task_route = Blueprint("tasks", __name__)
@@ -25,3 +25,13 @@ def create():
         return redirect(url_for('tasks.home'))
     return render_template('tasks/create.html', form=form)
 
+
+@task_route.route('/<id>')
+@login_required
+def read_task(id):
+    if Task.query.filter_by(id=id).first():
+        task = Task.query.filter_by(id=id).first()
+        return render_template('tasks/read-task.html', task=task)
+    else:
+        flash("Nenhum tarefa encontrada!")
+        return redirect(url_for('tasks.home'))

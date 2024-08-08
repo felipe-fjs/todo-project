@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ task.title[0:10]}}</title>
+    <link rel="stylesheet" href="../../static/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <style>
+               * {
+            margin: 0%;
+            padding: 0%;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        body, html {
+            width: 100vw;
+            height: 100vh;
+            background-color: #5171A5;
+        }
+        main {
+            position: relative;
+        }
+        @media screen {
+          .form-task {
+          margin: 30px auto;
+          padding: 20px;
+          width: 380px;
+          height: 600px;
+          border-radius: 10px;
+          background-color: white;
+
+          transition: width .5s;
+          transition-timing-function: ease;
+        }
+        .form-task .form-control {
+          background-color: #5171a570;
+        }
+        .form-task .form-control:hover {
+          box-shadow: 1px 1px 3px black;
+        }
+        .form-task .form-control:focus{
+          background-color: white;
+          box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.649);
+          color: black;
+        }
+        .form-task  textarea {
+          margin-bottom: 10px;
+          height: 400px;
+          resize: none;
+          overflow-y: auto;
+        }
+
+        .form-task button:hover{
+          box-shadow: 2px 2px 3px  rgba(0, 0, 0, 0.523) ;
+        }
+        }
+
+        @media screen and (min-width:600px) {
+          .form-task{
+            width: 500px;
+          }
+        }
+
+        @media screen and (min-width:992px) {
+          .form-task{
+            width: 700px;
+          }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url_for('tasks.home')}}">Tasks</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link"href="{{ url_for('tasks.home')}}">Home | listar tarefas</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('tasks.create')}}">Criar tarefa</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Alterar tarefa</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Excluir tarefa</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('entry.logout') }}">Sair</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="form-task">
+            <form>
+                <div>
+                  <label for="title">Título</label>
+                  <input type="text" name="title" id="title" class="form-control" value="{{ task.title }}" disabled>
+                </div>
+                <div>
+                  <label for="content">Conteúdo</label>
+                  <textarea type="text" name="content" id="content" class="form-control" disabled>{{ task.content }}</textarea>
+                </div>
+                <div>
+                  <button type="button" class="btn btn-success">Concluir</button>
+                  <button type="button" class="btn btn-primary">Editar Tarefa</button>
+                  <button type="reset" class="btn btn-danger">Excluir</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+
+    <script src="../../static/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
