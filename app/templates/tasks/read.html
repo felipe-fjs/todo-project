@@ -38,6 +38,12 @@
             
             transition: box-shadow 0.3s;
         }
+        .task > a {
+            color: black;
+        }
+        .task > a:hover {
+            color: blue;
+        }
         @media screen and (min-width:992px) {
             main .bg-tasks{
                 width: 700px;
@@ -111,7 +117,7 @@
                     {% for task in tasks %}
 
                         <div class="task">
-                            <p>{{ task.title }} </p>
+                            <a href="{{ url_for('tasks.read_task', id=task.id)}}">{{ task.title }} </a >
                             <button type="button">
                                 <span class="material-symbols-outlined">check</span>
                             </button>
