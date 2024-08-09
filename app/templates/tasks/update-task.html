@@ -100,36 +100,18 @@
 
     <main>
         <section class="form-task">
-          {% set messages = get_flashed_messages() %}
-          {% if messages %}
-            <div>
-              {% for message in messages %}
-                {{message}}
-              {% endfor %}
-            </div>
-          {% endif%}
             <form>
                 <div>
-
                   <label for="title">Título</label>
-
-                  <input type="text" name="title" id="title" class="form-control" value="{{ task.title }}"  disabled>
-
+                  <input type="text" name="title" id="title" class="form-control" value="{{ task.title }}" disabled>
                 </div>
                 <div>
                   <label for="content">Conteúdo</label>
-
                   <textarea type="text" name="content" id="content" class="form-control" disabled>{{ task.content }}</textarea>
-
                 </div>
                 <div>
-
-                  <button type="button" class="btn btn-success" onclick="taskCompleted(`{{url_for('tasks.completed', id=task.id)}}`)">Concluir</button>
-
-                  <button type="button" class="btn btn-primary" onclick="">Editar Tarefa</button>
-
-                  <button type="reset" class="btn btn-danger" onclick="">Excluir</button>
-
+                  <button type="button" class="btn btn-success">Salvar</button>
+                  <button type="reset" class="btn btn-danger">Cancelar</button>
                 </div>
             </form>
         </section>
@@ -137,15 +119,5 @@
 
 
     <script src="../../static/js/bootstrap.bundle.min.js"></script>
-    <script>
-      function openUpdateTask(url){
-        window.open(url, '_self')
-      }
-      
-      function taskCompleted(url){
-        fetch(url, {method:'PUT'}).then(response => response).then(data => { window.location.reload()})
-      }
-
-    </script>
 </body>
 </html>
