@@ -6,6 +6,21 @@ from flask_login import login_required, current_user
 task_route = Blueprint("tasks", __name__)
 
 
+"""     ROTAS A SEREM ADICIONADAS 
+
+        * /tasks/ (get) - faz o carregamento de todas as tarefas existestes, haverá filtro entre
+                          as tarefas pendentes e já concluídas;
+        * /tasks/create (GET) - carrega o formulário para criação de tarefas;
+        * /tasks/create (POST) - faz  o envio das informações inseridas;
+        * /tasks/id (get) - carregamento de uma tarefa;
+        * /tasks/id/completed (PUT) - alterar o status de pendent True(1) para False (0);
+        * /tasks/id/update (get) - carregamento de formulário para alterações;
+        * /tasks/id/update (PUT) - envio de alterações realizadas;
+        * /tasks/id/delete (DELETE) - realizar exclusão de tarefa;;
+
+"""
+
+
 @task_route.route('/home')
 @login_required
 def home():
@@ -56,3 +71,4 @@ def read_task(id):
     else:
         flash("Nenhum tarefa encontrada!")
         return redirect(url_for('tasks.home'))
+    
