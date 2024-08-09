@@ -21,9 +21,15 @@ def home():
 def completed(id):
     if Task.query.filter_by(id=id).first():
         task = Task.query.filter_by(id=id).first()
-        task.pendent = 0
-        db.session.commit()
-        return jsonify(status='completed')
+        if task.pendent == 1:
+            task.pendent = 0
+            db.session.commit()
+            flash(f'Tarefa foi concluida com sucesso!')
+            return jsonify(status='completed')
+        else:
+            flash(f'Tarefa já está concluida!')
+            return jsonify(status='already-completed')
+
     else:
         return jsonify(status='not-completed')
 
