@@ -20,7 +20,7 @@
             - front 🆗
             - back 🆗
         - Update tasks
-            - front leitura
+            - front leitura🆗
             - front edição
                 - uso de fetch API
             - back
