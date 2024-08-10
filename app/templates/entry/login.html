@@ -1,15 +1,8 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Faça seu login</title>
-    <link rel="stylesheet" href="../../static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../static/css/mobile.css">
-    <link rel="stylesheet" href="../../static/css/media-queries.css">
-    
-</head>
-<body>
+{% extends "entry/base.html" %}
+
+    {% block title %}Faça seu login {% endblock %}
+
+{% block content %}
     <main class="container" id="main">
         <div id="div-img"></div>
         <section class="form-conteiner">
@@ -32,12 +25,10 @@
                 </div>
                 <button type="submit" id="btn-login">Entrar</button>
                 
-                <a href="#" id="signup-a">Cadastre-se</a>
+                <a href="{{ url_for('entry.signup')}}" id="signup-a">Cadastre-se</a>
                 <a href="#" id="forget-a">Esqueci a senha</a>
                 
             </form>
         </section>
     </main>
-    <script src="../../static/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+{% endblock %}

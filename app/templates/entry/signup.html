@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscreva-se</title>
-    <link rel="stylesheet" href="../../static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../static/css/mobile.css">
-    <link rel="stylesheet" href="../../static/css/media-queries.css">
-</head>
-<body>
+{% extends "entry/base.html" %}
+
+    {% block title %}Cadastre-se{% endblock %}
+
+{% block content %}
     <main id="main">
         <div id="div-img"></div>
         <section id="conteiner-errors">
@@ -35,7 +29,7 @@
                     <p id="pass-warning">As senhas devem ser iguais!</p>
                 </div>
                 <button type="submit" id="btn-signup" disabled>Cadastrar-se</button>
-                <a href="#" id="login-a">Possui conta? Faça login</a>
+                <a href="{{ url_for('entry.login')}}" id="login-a">Possui conta? Faça login</a>
             </form>
         </section>
     </main>
@@ -55,5 +49,4 @@
         }
         password_check.addEventListener('input',  verifyPass);
     </script>
-</body>
-</html>
+{% endblock %}
