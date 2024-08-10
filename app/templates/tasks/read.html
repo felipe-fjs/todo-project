@@ -1,112 +1,7 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tarefas</title>
-    <link rel="stylesheet" href="../../static/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-    <style>
-        * {
-            margin: 0%;
-            padding: 0%;
-            box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-        html, body{
-            height: 100vh;
-            width: 100vw;
-            background-color: rgba(49, 94, 166);
-        }
-        main .bg-tasks{
-                width: 90vw;
-                margin-top: 10px;
-                background-color: white;
-                border-radius: 10px;
-                box-shadow: 0 0 5px rgba(0, 0, 0, 0.515);
-                height: 90vh;
-            }
-        .task {
-            position: relative;
+{% extends "tasks/base.html" %}
+    {% block title %}Tarefas{%  endblock %}
 
-            width: 100%;
-            padding: 10px;
-            border-radius: 5px;
-            background-color: rgba(49, 94, 166, 0.608);
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.436);
-            margin: 10px 0 ;
-            
-            transition: box-shadow 0.3s;
-        }
-        .task > a {
-            color: black;
-        }
-        .task > a:hover {
-            color: blue;
-            width: 90%;
-        }
-        @media screen and (min-width:992px) {
-            main .bg-tasks{
-                width: 700px;
-                margin-top: 10px;
-                background-color: white;
-                border-radius: 10px;
-                box-shadow: 0 0 5px rgba(0, 0, 0, 0.515);
-                height: 90vh;
-            }
-        }
-        .task:hover {
-            box-shadow: 2px 2px 5px black;
-        }
-        .task button {
-            position: absolute;
-            top: 50%;
-            right: 1%;
-            transform: translate(0, -50%);
-
-            background-color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-
-            transition: background-color 0.5s;
-        }
-        .task button:hover {
-            background-color: rgba(0, 128, 0, 0.556);
-        }
-        .task button:hover .material-symbols-outlined {
-            color: white;
-        }
-    </style>
-</head>
-<body>
-    <nav class="navbar bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{{ url_for('tasks.home')}}">Tasks</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link"href="{{ url_for('tasks.home')}}">Home | listar tarefas</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('tasks.create')}}">Criar tarefa</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Alterar tarefa</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Excluir tarefa</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('entry.logout') }}">Sair</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-    </nav>
+{% block content %}
     <main class="container">
         <div class="row justify-content-center">
             <div class="bg-tasks" onclick>
@@ -114,7 +9,7 @@
                 {% if tasks %}
                     {% for task in tasks %}
 
-                        <div class="task">
+                        <div class="task-read">
                             <a href="{{ url_for('tasks.read_task', id=task.id)}}">{{ task.title }} </a >
                             <button type="button" onclick="completed('{{task.id}}', `{{url_for('tasks.completed', id=task.id)}}`)">
                                 <span class="material-symbols-outlined">check</span>
@@ -129,7 +24,6 @@
         </div>
     </main>
 
-    <script src="../../static/js/bootstrap.bundle.min.js"></script>
     <script>
         function completed(url, task_id){
             fetch(url, {
@@ -141,5 +35,4 @@
             })
         } 
     </script>
-</body>
-</html>
+{% endblock %}

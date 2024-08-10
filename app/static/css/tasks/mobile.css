@@ -1,0 +1,129 @@
+@charset "UTF-8";
+
+
+* {
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+body, html {
+    width: 100vw;
+    height: 100vh;
+    background-color: #5171A5;
+}
+main {
+    position: relative;
+}
+
+.form-task {
+  margin: 30px auto;
+  padding: 20px;
+  width: 380px;
+  height: 600px;
+  border-radius: 10px;
+  background-color: white;
+
+  transition: width .5s;
+  transition-timing-function: ease;
+}
+.form-task .form-control {
+  background-color: #5171a570;
+}
+.form-task .form-control:hover {
+  box-shadow: 1px 1px 3px black;
+}
+.form-task .form-control:focus{
+  background-color: white;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.649);
+  color: black;
+}
+.form-task  textarea {
+  margin-bottom: 10px;
+  height: 400px;
+  resize: none;
+}
+.form-task button.btn-success {
+  float: left;
+}
+.form-task button.btn-warning {
+  float: right;
+}
+.form-task button:hover{
+  box-shadow: 2px 2px 3px  rgba(0, 0, 0, 0.523) ;
+}
+
+@media screen and (min-width:600px) {
+    .form-task{
+      width: 500px;
+    }
+  }
+
+  @media screen and (min-width:992px) {
+    .form-task{
+      width: 700px;
+    }
+  }
+
+
+
+
+main .bg-tasks{
+    width: 90vw;
+    margin-top: 10px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.515);
+    height: 90vh;
+}
+.task {
+position: relative;
+
+width: 100%;
+padding: 10px;
+border-radius: 5px;
+background-color: rgba(49, 94, 166, 0.608);
+box-shadow: 0 0 5px rgba(0, 0, 0, 0.436);
+margin: 10px 0 ;
+
+transition: box-shadow 0.3s;
+}
+.task > a {
+color: black;
+}
+.task > a:hover {
+color: blue;
+width: 90%;
+}
+@media screen and (min-width:992px) {
+main .bg-tasks{
+    width: 700px;
+    margin-top: 10px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.515);
+    height: 90vh;
+}
+}
+.task:hover {
+box-shadow: 2px 2px 5px black;
+}
+.task button {
+position: absolute;
+top: 50%;
+right: 1%;
+transform: translate(0, -50%);
+
+background-color: white;
+width: 30px;
+height: 30px;
+border-radius: 50%;
+
+transition: background-color 0.5s;
+}
+.task button:hover {
+background-color: rgba(0, 128, 0, 0.556);
+}
+.task button:hover .material-symbols-outlined {
+color: white;
+}
