@@ -126,7 +126,7 @@
 
                   <button type="button" class="btn btn-success" onclick="taskCompleted(`{{url_for('tasks.completed', id=task.id)}}`)">Concluir</button>
 
-                  <button type="button" class="btn btn-primary" onclick="">Editar Tarefa</button>
+                  <a href="update" class="btn btn-primary">Editar Tarefa</a>
 
                   <button type="reset" class="btn btn-danger" onclick="">Excluir</button>
 
@@ -138,10 +138,6 @@
 
     <script src="../../static/js/bootstrap.bundle.min.js"></script>
     <script>
-      function openUpdateTask(url){
-        window.open(url, '_self')
-      }
-      
       function taskCompleted(url){
         fetch(url, {method:'PUT'}).then(response => response).then(data => { window.location.reload()})
       }
