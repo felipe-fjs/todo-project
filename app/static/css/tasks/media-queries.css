@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+@media screen and (min-width:600px) {
+    .form-task{
+      width: 500px;
+    }
+}
+
+@media screen and (min-width:992px) {
+
+    main .bg-tasks{
+        width: 700px;
+        margin-top: 10px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.515);
+        height: 90vh;
+    }
+
+    .form-task{
+      width: 700px;
+    }
+}
