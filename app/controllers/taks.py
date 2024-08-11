@@ -8,14 +8,14 @@ task_route = Blueprint("tasks", __name__)
 
 """     ROTAS A SEREM ADICIONADAS 
 
-        * /tasks/ (get) - faz o carregamento de todas as tarefas existestes, haverá filtro entre
+OK        * /tasks/ (get) - faz o carregamento de todas as tarefas existestes, haverá filtro entre
                           as tarefas pendentes e já concluídas;
-        * /tasks/create (GET) - carrega o formulário para criação de tarefas;
-        * /tasks/create (POST) - faz  o envio das informações inseridas;
-        * /tasks/id (get) - carregamento de uma tarefa;
-        * /tasks/id/completed (PUT) - alterar o status de pendent True(1) para False (0);
-        * /tasks/id/update (get) - carregamento de formulário para alterações;
-        * /tasks/id/update (PUT) - envio de alterações realizadas;
+OK        * /tasks/create (GET) - carrega o formulário para criação de tarefas;
+OK        * /tasks/create (POST) - faz  o envio das informações inseridas;
+OK        * /tasks/id (get) - carregamento de uma tarefa;
+OK        * /tasks/id/completed (PUT) - alterar o status de pendent True(1) para False (0);
+OK        * /tasks/id/update (get) - carregamento de formulário para alterações;
+OK        * /tasks/id/update (PUT) - envio de alterações realizadas;
         * /tasks/id/delete (DELETE) - realizar exclusão de tarefa;;
 
 """
@@ -95,3 +95,16 @@ def update_put(id):
     db.session.commit()
     
     return jsonify(status='ok', url=url_for('tasks.read_task', id=id))
+
+
+@task_route.route('/<id>/delete', methods=['DELETE'])
+@login_required
+def delete(id):
+    task_to_delete = Task.query.filter_by(id=id).first()
+    try:
+        db.session.delete(task_to_delete)
+        db.session.commit()
+    except Exception as erro:
+        return jsonify(erros=erro)
+    else:
+        return jsonify(status='ok', url=url_for('tasks.home'))

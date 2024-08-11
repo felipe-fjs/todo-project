@@ -41,7 +41,7 @@
         <div class="delete-check-hiden" id="delete-check" class="alert alert-warning">
           Tem certeza que deseja excluir essa tarefa?
           <button type="button" class="btn btn-danger" id="delete-confirm">Excluir</button>
-          <button type="button"id="delete-cancel" class="btn btn-warning" >Cancelar</button>
+          <button type="button" id="delete-cancel" class="btn btn-warning" >Cancelar</button>
         </div>
 
       </div>
@@ -87,5 +87,15 @@
 
   document.getElementById('btn-delete').addEventListener('click', deleteCheckHiden)
   document.getElementById('delete-cancel').addEventListener('click', deleteCheckHiden)
+  document.getElementById('delete-confirm').addEventListener('click', () => {
+    fetch("{{ url_for('tasks.delete', id=task.id)}}", {
+      method: "DELETE"
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data)
+      window.open(data['url'], '_self')
+    })
+  })
 </script>
 {% endblock %}
