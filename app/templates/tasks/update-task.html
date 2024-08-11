@@ -30,17 +30,17 @@
       document.getElementById('update-form').addEventListener('submit', function (event) {
         event.preventDefault()
 
-        const task = {title: document.getElementById('title').value, content: document.getElementById('content').value}
+        let task = {'title': document.getElementById('title').value, 'content': document.getElementById('content').value}
 
         fetch("{{ url_for('tasks.update_put', id=task.id)}}", {
-          method : "PUT",
+          method : 'PUT',
           body: JSON.stringify(task),
           headers: {
-            "Content-Type" : 'application/json; charset=UTF-8',
+            "Content-type": "application/json; charset=UTF-8"
           },
         })
         .then(response => response.json())
-        .then(data => {console.log(data); window.location.reload})
+        .then(data => {console.log(data)})
       } )
     </script>
   {% endblock %}

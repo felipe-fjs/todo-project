@@ -88,7 +88,10 @@ def update_form(id):
 @task_route.route('/<id>/update', methods=['PUT'])
 @login_required
 def update_put(id):
-    print(request.json)
-    print(current_user.id)
-    print(id)
-    return jsonify(status='tudo certo')
+    task_update = request.json
+    task = Task.query.filter_by(id=id).first()
+    task.title = task_update['title']
+    task.content = task_update['content']
+    db.session.commit()
+    
+    return jsonify(status='ok', url=url_for('tasks.read_task', id=id))
