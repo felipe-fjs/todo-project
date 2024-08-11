@@ -1,53 +1,91 @@
 {% extends "tasks/base.html" %}
 
-  {% block title %} {{ task.title[0:10]}} {% endblock %}
+{% block title %} {{ task.title[0:20]}} {% endblock %}
 
-  {% block head %} {% endblock %}
+{% block head %} {% endblock %}
 
-  {% block content %}
-    <main>
-        <section class="form-task">
-          {% set messages = get_flashed_messages() %}
-          {% if messages %}
-            <div>
-              {% for message in messages %}
-                {{message}}
-              {% endfor %}
-            </div>
-          {% endif%}
-            <form>
-                <div>
+{% block content %}
+<main>
+  <section class="form-task">
+    {% set messages = get_flashed_messages() %}
+    {% if messages %}
+    <div>
+      {% for message in messages %}
+      {{message}}
+      {% endfor %}
+    </div>
+    {% endif%}
+    <form>
+      <div>
 
-                  <label for="title">Título</label>
+        <label for="title">Título</label>
 
-                  <input type="text" name="title" id="title" class="form-control" value="{{ task.title }}"  disabled>
+        <input type="text" name="title" id="title" class="form-control" value="{{ task.title }}" disabled>
 
-                </div>
-                <div>
-                  <label for="content">Conteúdo</label>
+      </div>
+      <div>
+        <label for="content">Conteúdo</label>
 
-                  <textarea type="text" name="content" id="content" class="form-control" disabled>{{ task.content }}</textarea>
+        <textarea type="text" name="content" id="content" class="form-control" disabled>{{ task.content }}</textarea>
 
-                </div>
-                <div>
+      </div>
+      <div>
 
-                  <button type="button" class="btn btn-success" onclick="taskCompleted(`{{url_for('tasks.completed', id=task.id)}}`)">Concluir</button>
+        <button type="button" class="btn btn-success"
+          onclick="taskCompleted(`{{url_for('tasks.completed', id=task.id)}}`)" id="btn-conclude">Concluir</button>
 
-                  <a href="{{ url_for('tasks.update_form', id=task.id)}}" class="btn btn-primary">Editar Tarefa</a>
+        <button type="button" id="a-update" class="btn btn-primary" onclick='openUpdate()'>Editar tarefa</button>
 
-                  <button type="reset" class="btn btn-danger" onclick="">Excluir</button>
+        <button type="button" id="btn-delete" class="btn btn-danger">Excluir</button>
 
-                </div>
-            </form>
-        </section>
-    </main>
+        <div class="delete-check-hiden" id="delete-check" class="alert alert-warning">
+          Tem certeza que deseja excluir essa tarefa?
+          <button type="button" class="btn btn-danger" id="delete-confirm">Excluir</button>
+          <button type="button"id="delete-cancel" class="btn btn-warning" >Cancelar</button>
+        </div>
+
+      </div>
+    </form>
+  </section>
+</main>
 
 
-    <script src="../../static/js/bootstrap.bundle.min.js"></script>
-    <script>
-      function taskCompleted(url){
-        fetch(url, {method:'PUT'}).then(response => response).then(data => { window.location.reload()})
-      }
+<script>
+  function deleteCheckHiden() {
+    let btn_conclude = document.getElementById('btn-conclude')
+    let a_update = document.getElementById('a-update')
+    let btn_delete = document.getElementById('btn-delete')
+    let div_check = document.getElementById('delete-check') 
+    if (document.getElementById('delete-check').style.display !== 'block') {
 
-    </script>
-  {% endblock %}
+      btn_conclude.style.display = 'none'
+      a_update.style.display = 'none'
+      btn_delete.style.display = 'none'
+      div_check.style.display = 'none'
+      div_check.style.display = 'block'
+
+    } else {
+
+      btn_conclude.style.display = 'initial'
+      a_update.style.display = 'initial'
+      btn_delete.style.display = 'initial'
+      div_check.style.display = 'initial'
+      div_check.style.display = 'none'
+
+    }
+  }
+  
+
+  function taskCompleted(url) {
+    fetch(url, { method: 'PUT' }).then(response => response).then(data => { window.location.reload() })
+  }
+
+  function openUpdate (){
+    const url = "{{ url_for('tasks.update_form', id=task.id)}}"
+    window.open(url, "_self")
+  }
+
+  document.getElementById('btn-delete').addEventListener('click', deleteCheckHiden)
+  document.getElementById('delete-cancel').addEventListener('click', deleteCheckHiden)
+</script>
+{% endblock %}
