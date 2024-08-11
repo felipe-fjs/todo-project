@@ -72,3 +72,23 @@ def read_task(id):
         flash("Nenhum tarefa encontrada!")
         return redirect(url_for('tasks.home'))
     
+
+@task_route.route('/<id>/update', methods=['GET'])
+@login_required
+def update_form(id):
+    if Task.query.filter_by(id=id).first():
+        task = Task.query.filter_by(id=id).first()
+        return render_template('tasks/update-task.html', task=task)
+    else:
+        flash(f"Tarefa de id '{id}' não encontrada!")
+        return redirect(url_for('tasks.home'))
+
+
+
+@task_route.route('/<id>/update', methods=['PUT'])
+@login_required
+def update_put(id):
+    print(request.json)
+    print(current_user.id)
+    print(id)
+    return jsonify(status='tudo certo')
