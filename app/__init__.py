@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
@@ -7,6 +7,10 @@ import secrets
 app = Flask(__name__)
 app.config['SECRET_KEY'] = secrets.token_hex()
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root@localhost:3306/to_do_list'
+
+@app.errorhandler(404)
+def rota_invalida(e):
+    return render_template('not_found.html')
 
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+</head>
+
+<body>
+    <main class="container">
+        <section>
+            <h1>ERRO 404: <strong>Rota não encontrada</strong>!</h1>
+            <h2>Você está sendo redirecionado para a página <a href="{{ url_for('tasks.home') }}">home</a> do site em
+                <span id="count"></span></h2>
+            <meta http-equiv="refresh" content="5; url={{ url_for('tasks.home') }}" onload="countdown">
+        </section>
+    </main>
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+    <script>
+        function countdown(){
+            const count = document.getElementById('count')
+            let coutdown = 5
+            count.innerText = coutdown;
+
+            setInterval(()=> {
+                coutdown--;
+                count.innerText = coutdown;
+            }, 1000)
+        }
+
+        window.onload = countdown
+    </script>
+</body>
+
+</html>
