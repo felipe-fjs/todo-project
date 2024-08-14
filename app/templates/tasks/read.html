@@ -1,38 +1,41 @@
 {% extends "tasks/base.html" %}
-    {% block title %}Tarefas{%  endblock %}
+{% block title %}Tarefas{% endblock %}
 
 {% block content %}
-    <main class="container">
-        <div class="row justify-content-center">
-            <div class="bg-tasks" onclick>
-                <h1>Tarefas existentes</h1>
-                {% if tasks %}
-                    {% for task in tasks %}
+<main class="container">
+    <div class="row justify-content-center">
+        <div class="bg-tasks" onclick>
+            <h1>Tarefas existentes</h1>
+            {% if tasks %}
+            {% for task in tasks %}
 
-                        <div class="task">
-                            <a href="{{ url_for('tasks.read_task', id=task.id)}}">{{ task.title }} </a>
-                            <button type="button" onclick="completed('{{task.id}}', `{{url_for('tasks.completed', id=task.id)}}`)">
-                                <span class="material-symbols-outlined">check</span>
-                            </button>
-                        </div>
-                    {% endfor %}
+            <div class="task">
+                <a href="{{ url_for('tasks.read_task', id=task.id)}}">{{ task.title }} </a>
+                <button type="button" onclick="completed('{{task.id}}', `{{url_for('tasks.completed', id=task.id)}}`)">
+                    <span class="material-symbols-outlined">check</span>
+                </button>
+            </div>
+            {% endfor %}
 
-                {% else %}
-                    <h2 class="alert alert-warning">Não há tarefas cadastradas, crie novas em <a href="{{ url_for('tasks.create')}}">Criar tarefas</a></h2>
-                {% endif %}
-            </div>    
+            {% else %}
+            <h2 class="alert alert-warning">Não há tarefas cadastradas, crie novas em <a
+                    href="{{ url_for('tasks.create')}}">Criar tarefas</a></h2>
+            {% endif %}
         </div>
-    </main>
+    </div>
+</main>
 
-    <script>
-        function completed(url, task_id){
-            fetch(url, {
-                method: "PUT"
-            })
+<script>
+    function completed(url, task_id) {
+        fetch(url, {
+            method: "PUT"
+        })
             .then(response => response.json())
             .then(data => {
                 console.log(data)
+                window.location.href = "{{ url_for('tasks.home')}}"
+
             })
-        } 
-    </script>
+    } 
+</script>
 {% endblock %}
