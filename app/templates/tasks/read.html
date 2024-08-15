@@ -9,7 +9,7 @@
             {% if tasks %}
             {% for task in tasks %}
 
-            <div class="task">
+            <div class="task" onclick="window.location.href = `{{url_for('tasks.read_task', id=task.id)}}`">
                 <a href="{{ url_for('tasks.read_task', id=task.id)}}">{{ task.title }} </a>
                 <button type="button" onclick="completed('{{task.id}}', `{{url_for('tasks.completed', id=task.id)}}`)">
                     <span class="material-symbols-outlined">check</span>
