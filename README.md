@@ -4,4 +4,4 @@
  (abaixo está o link para o web app)
 
 
-# Projeto sendo hospedado em: felipejoaquim.pythonanywhere.com
+# Projeto sendo hospedado em: https://felipejoaquim.pythonanywhere.com
