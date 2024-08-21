@@ -13,8 +13,8 @@ def get_user(id_user):
 @entry_route.route('/')
 @entry_route.route('/login', methods=['GET', 'POST'])
 def login():
+    form = UserLoginForm()
     if request.method == 'POST':
-        form = UserLoginForm()
         if User.query.filter_by(email=form['email']).first():
             user = User.query.filter_by(email=form['email']).first()
             if user.verifyPass(form['pwd']):
@@ -24,7 +24,7 @@ def login():
                 flash("Senha incorreta!")
                 return redirect(url_for('entry.login'))
         else:
-            flash('Não existe usuário cadastrado com esse username!')
+            flash('Não existe usuário cadastrado com esse Email!')
             return redirect(url_for('entry.login'))
     return render_template('entry/login.html', form=form)
 

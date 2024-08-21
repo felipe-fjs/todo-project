@@ -16,12 +16,12 @@
             </div>
             <form action="{{ url_for('entry.login')}}" method="post">
                 <div>
-                    <label for="username">Nome de usuário</label>
-                    <input type="text" name="username" id="username">
+                    {{ form.email.label }}
+                    {{ form.email }}
                 </div>
                 <div>
-                    <label for="pwd">Senha</label>
-                    <input type="password" name="pwd" id="pwd">
+                    {{ form.pwd.label }}
+                    {{ form.pwd }}
                 </div>
                 <button type="submit" id="btn-login">Entrar</button>
                 
