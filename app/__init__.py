@@ -2,6 +2,8 @@ from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
+from flask_mail import Mail
+from itsdangerous import URLSafeTimedSerializer
 import secrets
 
 app = Flask(__name__)
@@ -15,6 +17,8 @@ def rota_invalida(e):
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
+mail = Mail(app)
+serializer = URLSafeTimedSerializer(app.config.get('SECRET_KEY'))
 
 
 login_manager.login_view = 'entry.login'
