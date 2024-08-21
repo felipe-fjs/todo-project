@@ -1,7 +1,7 @@
-from app import app, bcrypt, db, login_manager
-from app.models.user import User
-from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
-from flask_login import login_user, logout_user, login_required
+from app import bcrypt, db, login_manager
+from app.models.user import User, UserSignupForm, UserLoginForm
+from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask_login import login_user, logout_user
 
 entry_route = Blueprint('entry', __name__)
 
@@ -13,12 +13,11 @@ def get_user(id_user):
 @entry_route.route('/')
 @entry_route.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method == 'GET':
-        return render_template('entry/login.html')
-    elif request.method == 'POST':
-        if User.query.filter_by(username=request.form['username']).first():
-            user = User.query.filter_by(username=request.form['username']).first()
-            if user.verifyPass(request.form['pwd']):
+    if request.method == 'POST':
+        form = UserLoginForm()
+        if User.query.filter_by(email=form['email']).first():
+            user = User.query.filter_by(email=form['email']).first()
+            if user.verifyPass(form['pwd']):
                 login_user(user)
                 return redirect(url_for('tasks.home'))
             else:
@@ -27,6 +26,7 @@ def login():
         else:
             flash('Não existe usuário cadastrado com esse username!')
             return redirect(url_for('entry.login'))
+    return render_template('entry/login.html', form=form)
 
 
 @entry_route.route('/logout')
@@ -37,15 +37,15 @@ def logout():
 
 @entry_route.route('/signup', methods=['GET', 'POST'])
 def signup():
-    if request.method == 'GET':
-        return render_template("entry/signup.html")
-    elif request.method == 'POST':
-        user = request.form
-        if User.query.filter_by(username=user['username']).first():
+    form = UserSignupForm()
+    if request.method == 'POST':
+        user = form.data
+        if User.query.filter_by(email=user['email']).first():
             flash('Esse nome de usuário já está cadastrado!')
             return redirect(url_for('entry.signup'))
         else:
-            new_user = User(user['username'], bcrypt.generate_password_hash(user['password']))
+            new_user = User(user['nome'], user['email'], bcrypt.generate_password_hash(user['pwd']))
             db.session.add(new_user)
             db.session.commit()
             return redirect(url_for('entry.login_form'))
+    return render_template("entry/signup.html", form=form)
