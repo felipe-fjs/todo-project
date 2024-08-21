@@ -10,7 +10,7 @@ class User(db.Model, UserMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(120), nullable=False)
-    email = db.Column(db.String(100, unique=True, nullable=False))
+    email = db.Column(db.String(100), unique=True, nullable=False)
     pwd = db.Column(db.String(128), nullable=False)
     email_confirmed = db.Column(db.Boolean)
 

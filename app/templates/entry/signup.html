@@ -16,16 +16,16 @@
         <section class="form-conteiner">
             <form action="{{ url_for('entry.signup')}}" method="post">
                 <div>
-                    <label for="username">Nome de usuário</label>
-                    <input type="text" name="username" id="username">
+                    {{ form.email.label}}
+                    {{ form.email }}
                 </div>
                 <div>
                     <label for="password">Sua senha</label>
                     <input type="password" name="password" id="password">
                 </div>
                 <div>
-                    <label for="password-check">Sua senha</label>
-                    <input type="password" id="password-check">
+                    {{ form.pwd.label }}
+                    {{ form.pwd }}
                     <p id="pass-warning">As senhas devem ser iguais!</p>
                 </div>
                 <button type="submit" id="btn-signup" disabled>Cadastrar-se</button>
@@ -35,8 +35,8 @@
     </main>
 
     <script>
-        let password = document.getElementById('password');
-        let password_check = document.getElementById('password-check');
+        let password = document.getElementById('pwd');
+        let password_check = document.getElementById('pwd_check');
         function verifyPass() {
             const pass_warning = document.getElementById('pass-warning');
             if (password.value !== password_check.value) {
