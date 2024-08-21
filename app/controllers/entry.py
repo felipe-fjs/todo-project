@@ -15,6 +15,7 @@ def get_user(id_user):
 def login():
     form = UserLoginForm()
     if request.method == 'POST':
+        form = form.data
         if User.query.filter_by(email=form['email']).first():
             user = User.query.filter_by(email=form['email']).first()
             if user.verifyPass(form['pwd']):
