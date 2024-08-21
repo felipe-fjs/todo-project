@@ -20,12 +20,12 @@
                     {{ form.email }}
                 </div>
                 <div>
-                    <label for="password">Sua senha</label>
-                    <input type="password" name="password" id="password">
-                </div>
-                <div>
                     {{ form.pwd.label }}
                     {{ form.pwd }}
+                </div>
+                <div>
+                    {{ form.pwd_check.label }}
+                    {{ form.pwd_check }}
                     <p id="pass-warning">As senhas devem ser iguais!</p>
                 </div>
                 <button type="submit" id="btn-signup" disabled>Cadastrar-se</button>
