@@ -70,9 +70,7 @@ def signup():
             message = Message(subject=subject, sender=EMAIL_USERNAME, recipients=[new_user.user_email], body=body)
             mail.send(message)
 
-            response = post(("http://localhost:5000"+url_for('entry.generate_token')))
-
-            return response
+            return redirect(url_for('entry.login'))
     return render_template("entry/signup.html", form=form)
 
 
