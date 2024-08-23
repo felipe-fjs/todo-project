@@ -2,8 +2,39 @@
 
 {% block title %} {% endblock %}
 
-{% block head %} {% endblock %}
+{% block head %}
 
-{% block content %} 
+    <style>
+        * {
+            margin: 0%;
+            padding: 0%;
+            box-sizing: border-box;
+        }
+        body {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        main {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 2rem;
+        }
+    </style>
+
+{% endblock %}
+
+{% block content %}
+<main>
     <h1>{{ message }}</h1>
+    {% if error == 1 %}
+        <h1>A sua chave foi expirada!<h1>
+            <h2>Faça <a href="{{ url_for('entry.login')}}">login</a> para solicitar novo link!</h2>
+    {% else %}
+        <h1>A sua chave está corrompida!</h1>
+        <h2>copie e cole-a corretamente ou faça <a href="{{ url_for('entry.login')}}">login</a> e click na opção 'gerar nova chave'</h2>
+    {% endif %}
+</main>
 {% endblock %}

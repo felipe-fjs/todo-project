@@ -5,7 +5,6 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from itsdangerous import URLSafeTimedSerializer
 from CONFIG import EMAIL_USERNAME, EMAIL_PASSWORD, SECRET_KEY
-import secrets
 
 
 mail_config = {

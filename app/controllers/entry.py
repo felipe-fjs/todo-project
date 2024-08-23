@@ -76,12 +76,15 @@ def signup():
 def email_confirmation(token):
     try:
         user_info = serializer.loads(token, salt=SALT_SERIALIZER)
+
     except SignatureExpired:
         message = "A sua chave foi expiradoa click em [link] para gerar uma nova"
-        return render_template('entry/error-confirm.html', message=message)
+        return render_template('entry/error-confirm.html', error=1)
+    
     except  BadSignature:
         message = "A seu chave está corrompida, copie e cole-a corretamente ou faça login e click na opção 'gerar nova chave'!"
-        return render_template('entry/error-confirm.html', message=message)
+        return render_template('entry/error-confirm.html', error=2)
+    
     user = User.query.filter_by(email=user_info['email']).first()
     if user.email_confirmed:
         flash(f"Olá {user.name}, seu email já foi confirmado anteriormente!")
