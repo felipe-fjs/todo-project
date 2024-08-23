@@ -54,10 +54,8 @@ def signup():
         else:
             
             new_user = User(form.name.data, form.email.data, bcrypt.generate_password_hash(form.pwd.data))
-            
-            print(new_user)
 
-            token = serializer.dumps({'id': new_user.id,'email':new_user.email}, salt=SALT_SERIALIZER)
+            token = serializer.dumps(new_user.email, salt=SALT_SERIALIZER)
 
             url_confirm = url_for("entry.email_confirmation", token=token, _external=True)
             subject = f'Mensagem para confirmação do seu email {form.name.data}'
@@ -84,9 +82,11 @@ def email_confirmation(token):
     except  BadSignature:
         message = "A seu chave está corrompida, copie e cole-a corretamente ou faça login e click na opção 'gerar nova chave'!"
         return render_template('entry/error-confirm.html', message=message)
-    user = User.query.filter_by(id=user_info['id']).first()
+    user = User.query.filter_by(email=user_info['email']).first()
+    if user.email_confirmed:
+        flash(f"Olá {user.name}, seu email já foi confirmado anteriormente!")
+        return redirect(url_for('entry.login'))
     user.email_confirmed = True
-
     db.session.commit()
     flash(f"Olá {user.name}, seu email foi confirmado com sucesso!")
     return redirect(url_for('entry.login'))

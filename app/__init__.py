@@ -4,7 +4,7 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
 from itsdangerous import URLSafeTimedSerializer
-from CONFIG import EMAIL_USERNAME, EMAIL_PASSWORD
+from CONFIG import EMAIL_USERNAME, EMAIL_PASSWORD, SECRET_KEY
 import secrets
 
 
@@ -19,7 +19,7 @@ mail_config = {
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = secrets.token_hex()
+app.config['SECRET_KEY'] = SECRET_KEY
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root@localhost:3306/to_do_list'
 app.config.update(mail_config)
 
