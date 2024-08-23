@@ -2,7 +2,7 @@ from app import app, bcrypt, db, login_manager, serializer, mail
 from app.models.user import User, UserSignupForm, UserLoginForm
 from CONFIG import SALT_SERIALIZER, EMAIL_USERNAME
 from flask import Blueprint, render_template, request, redirect, url_for, flash
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 from flask_mail import Message
 from itsdangerous import BadSignature, SignatureExpired
 
@@ -31,6 +31,8 @@ def login():
         else:
             flash('Não existe usuário cadastrado com esse Email!')
             return redirect(url_for('entry.login'))
+    if current_user.is_authenticated:
+        return redirect(url_for('tasks.home'))
     return render_template('entry/login.html', form=form)
 
 
@@ -82,5 +84,9 @@ def email_confirmation(token):
     except  BadSignature:
         message = "A seu chave está corrompida, copie e cole-a corretamente ou faça login e click na opção 'gerar nova chave'!"
         return render_template('entry/error-confirm.html', message=message)
-    
-    pass
+    user = User.query.filter_by(id=user_info['id']).first()
+    user.email_confirmed = True
+
+    db.session.commit()
+    flash(f"Olá {user.name}, seu email foi confirmado com sucesso!")
+    return redirect(url_for('entry.login'))
