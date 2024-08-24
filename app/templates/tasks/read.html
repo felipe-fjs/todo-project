@@ -40,7 +40,8 @@
             <h2 class="alert alert-warning">Não há tarefas cadastradas, crie novas em <a
                     href="{{ url_for('tasks.create')}}">Criar tarefas</a></h2>
             {% endif %}
-            <span id="new_task" class="material-symbols-outlined btn btn-primary" title="Adicionar nova tarefa">add_circle</span>
+            <span id="new_task" class="material-symbols-outlined btn btn-primary" title="Adicionar nova tarefa"
+            onclick='location.href = `{{url_for("tasks.create")}}`'>add_circle</span>
         </div>
     </div>
 </main>
