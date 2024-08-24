@@ -64,6 +64,8 @@ main {
 }
 
 main .bg-tasks {
+  position: relative;
+
   width: 90vw;
   margin-top: 10px;
   background-color: white;
