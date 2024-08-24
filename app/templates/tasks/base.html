@@ -12,7 +12,7 @@
   <style>
     span#powered {
       position: absolute;
-      top: 94%;
+      bottom: 10px;
       left: 10px;
 
       padding: 5px;
@@ -49,6 +49,7 @@
           {% endif %}
         </ul>
         <span class="d-flex">
+          <span class="me-2">{{ current_user.name }}</span>
           <a class="nav-link" href="{{ url_for('entry.logout') }}">Sair</a>
         </span>
       </div>
