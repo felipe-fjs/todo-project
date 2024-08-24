@@ -9,7 +9,18 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/tasks/mobile.css')}}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/tasks/media-queries.css')}}">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <style>
+    span#powered {
+      position: absolute;
+      top: 94%;
+      left: 10px;
 
+      padding: 5px;
+      background-color: white;
+      border: 0.5px black solid;
+      border-radius: 2rem;
+    }
+  </style>
   {% block head %} {% endblock %}
 
 </head>
@@ -30,12 +41,12 @@
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('tasks.create')}}">Criar tarefa</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Alterar tarefa</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Excluir tarefa</a>
-          </li>
+          
+          {% if not current_user.email_confirmed %}
+            <li class="nav-item" id="confirm-email">
+              <span class="nav-link">Seu email ainda não foi confirmado! Clique <a href="{{ url_for('entry.generate_token')}}">aqui</a> para gerar uma nova chave de validação se tiver tido algum problema</span>
+            </li>
+          {% endif %}
         </ul>
         <span class="d-flex">
           <a class="nav-link" href="{{ url_for('entry.logout') }}">Sair</a>
@@ -45,7 +56,7 @@
   </nav>
 
   {% block content %} {% endblock %}
-
+  <span id="powered">Powered by <a href="https://github.com/felipe-fjs" target="_blank">Felipe Joaquim</a></span>
   <script src="../../static/js/bootstrap.bundle.min.js"></script>
 </body>
 
