@@ -24,7 +24,6 @@ OK        * /tasks/id/delete (DELETE) - realizar exclusão de tarefa;;
 
 @task_route.route('/home')
 @login_required
-@email_confirmation_required
 def home():
     tasks_pendent = Task.query.filter_by(user_id=current_user.id, pendent=1).all()
     tasks_completed = Task.query.filter_by(user_id=current_user.id, pendent=0).all()
@@ -35,7 +34,6 @@ def home():
 
 @task_route.route('/<id>', methods=['PUT'])
 @login_required
-@email_confirmation_required
 def completed(id):
     if Task.query.filter_by(id=id).first():
         task = Task.query.filter_by(id=id).first()
@@ -54,7 +52,6 @@ def completed(id):
 
 @task_route.route('/create', methods=['GET', 'POST'])
 @login_required
-@email_confirmation_required
 def create():
     form = TaskForm()
     if form.is_submitted():
@@ -68,7 +65,6 @@ def create():
 
 @task_route.route('/<id>')
 @login_required
-@email_confirmation_required
 def read_task(id):
     if Task.query.filter_by(id=id).first():
         task = Task.query.filter_by(id=id).first()
@@ -80,7 +76,6 @@ def read_task(id):
 
 @task_route.route('/<id>/update', methods=['GET'])
 @login_required
-@email_confirmation_required
 def update_form(id):
     if Task.query.filter_by(id=id).first():
         task = Task.query.filter_by(id=id).first()
@@ -93,7 +88,6 @@ def update_form(id):
 
 @task_route.route('/<id>/update', methods=['PUT'])
 @login_required
-@email_confirmation_required
 def update_put(id):
     task_update = request.json
     task = Task.query.filter_by(id=id).first()
@@ -106,7 +100,6 @@ def update_put(id):
 
 @task_route.route('/<id>/delete', methods=['DELETE'])
 @login_required
-@email_confirmation_required
 def delete(id):
     task_to_delete = Task.query.filter_by(id=id).first()
     try:
