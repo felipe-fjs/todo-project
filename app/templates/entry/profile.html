@@ -1,0 +1,27 @@
+{% extends "entry/base.html" %}
+
+{% block title %} {% endblock %}
+
+{% block head %} {% endblock %}
+
+{% block content %} 
+
+<!-- Planejando adicionar mais informações para poder gerar um perfil -->
+
+<main>
+    <section id="profile">
+        <form>
+            <p>
+                <label for="name">Nome</label>
+                <input type="text" name="name" id="name" disabled>
+            </p>
+            <p>
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email">
+            </p>
+            
+        </form>
+    </section>
+</main>
+
+{% endblock %}
