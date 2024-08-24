@@ -67,14 +67,14 @@ def signup():
             body = f"""Acesse o link abaixo para confirmar seu endereço de email ou copie e cole no seu navegador
                 {url_confirm}
                 Obrigado por utilizar nossos serviços"""
-            message = Message(subject=subject, sender=EMAIL_USERNAME, recipients=[new_user.user_email], body=body)
+            message = Message(subject=subject, sender=EMAIL_USERNAME, recipients=[new_user.email], body=body)
             mail.send(message)
 
             return redirect(url_for('entry.login'))
     return render_template("entry/signup.html", form=form)
 
 
-@entry_route.route('/gerando-chave', methods=['POST'])
+@entry_route.route('/gerando-chave')
 @login_required
 def generate_token():
     token = serializer.dumps({'id':current_user.id, "email":current_user.email}, salt=SALT_SERIALIZER)
@@ -87,7 +87,6 @@ def generate_token():
     message = Message(subject=subject, sender=EMAIL_USERNAME, recipients=[current_user.email], body=body)
     mail.send(message)
 
-    session.popitem(("new_user_id", "new_user_email", "new_user_name"))
 
     return redirect(url_for('entry.login'))
 
