@@ -1,11 +1,9 @@
-from app import app, bcrypt, db, login_manager, serializer, mail
+from app import bcrypt, db, login_manager, serializer, mail
 from app.models.user import User, UserSignupForm, UserLoginForm
-from app.controllers.decorators import signup_required
 from CONFIG import SALT_SERIALIZER, EMAIL_USERNAME
-from flask import Blueprint, render_template, request, redirect, url_for, flash, make_response, session
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required, current_user
 from flask_mail import Message
-from requests import post
 from itsdangerous import BadSignature, SignatureExpired
 
 
