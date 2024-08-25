@@ -108,3 +108,55 @@ def email_confirmation(token):
     flash(f"Olá {user.name}, seu email foi confirmado com sucesso!")
     return redirect(url_for('entry.login'))
 
+
+@entry_route.route('/esqueci-a-senha', methods=['GET', 'POST'])
+def request_password():
+    if request.method == 'POST':
+        if User.query.filter_by(email=request.form['email']).first():
+            email = request.form['email']
+
+            token = serializer.dumps(email, salt='email-token-confirmation')
+            urlConfirm = url_for('entry.new_pwd', token=token, _method='GET', _external=True)
+
+            body =  f"""Segue abaixo o link para recurepação de senha!
+                        {urlConfirm}"""
+            message = Message(subject='Mensagem com link para redefinição de senha',
+                            recipients=[email],
+                            body=body,  sender=EMAIL_USERNAME)
+            
+            mail.send(message)
+
+            email = email.split('@')
+            print(email)
+            email = email[0][0:4] + "*"*(len(email[0])-4) + "@" +email[1]
+            print(email)
+
+            message = f'Email com link para redefinição de senha foi enviado para {email}'
+        else:
+            message = f"email '{request.form['email']} não é um email registrado!'"
+        flash(message)
+        return redirect(url_for('entry.request_password'))
+    return render_template('entry/request-pwd.html')
+
+@entry_route.route('/nova-senha/<token>', methods=['GET'])
+@entry_route.route('/nova-senha', methods=['POST'])
+def new_pwd(token=0):
+    if request.method == 'GET':
+        try:
+            email = serializer.loads(token, salt='email-token-confirmation')
+        except SignatureExpired:
+            return "<h1>Token expirou!</h1>"
+        except BadSignature:
+            return "<h1>Token corrompido!</h1>"
+        
+        user = User.query.filter_by(email=email).first()
+        return render_template('entry/new-pwd.html', user={'id':user.id, 'email':user.email})
+    
+    new_password = request.form['pwd']
+    user = User.query.filter_by(email=request.form['email']).first()
+    user.pwd = bcrypt.generate_password_hash(new_password)
+    db.session.commit()
+    if current_user:
+        logout_user()
+    return redirect(url_for('entry.login'))
+ 

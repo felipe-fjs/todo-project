@@ -35,7 +35,7 @@
             <button type="submit" id="btn-login">Entrar</button>
 
             <a href="{{ url_for('entry.signup')}}" id="signup-a">Cadastre-se</a>
-            <a href="#" id="forget-a">Esqueci a senha</a>
+            <a href="{{ url_for('entry.request_password')}}" id="forget-a">Esqueci a senha</a>
 
         </form>
     </section>

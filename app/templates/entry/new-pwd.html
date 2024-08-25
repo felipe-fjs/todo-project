@@ -1,0 +1,77 @@
+{% extends "entry/base.html" %}
+
+{% block title %} Nova senha {% endblock %}
+
+{% block head %} 
+    <style>
+        * {
+            padding: 0;
+            margin: 0%;
+            box-sizing: border-box;
+        }
+        main {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+        }
+        section {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: center;
+            align-items: center;
+            flex-basis: 300px;
+
+            height: 300px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 5px;
+
+        }
+        form > * {
+            margin: 5px 0;
+        }
+        p#pass-warning {
+            display: none;
+            color: red;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <main>
+        <section>
+            <form action="{{url_for('entry.new_pwd')}}" method="post">
+                <input type="hidden" name="email" value="{{user.email}}">
+                <p>
+                    <label for="pwd">Nova senha</label>
+                    <input class="form-control" type="password" name="pwd" id="pwd">
+                </p>
+                <p>
+                    <label for="pwd_check">Repita a senha</label>
+                    <input class="form-control" type="password" name="pwd_check" id="pwd_check">
+                    <p id="pass-warning">As senhas devem ser iguais!</p>
+                </p>
+                <button type="submit" class="btn btn-primary">Nova senha</button>
+            </form>
+        </section>
+    </main>
+
+<script>
+    let password = document.getElementById('pwd');
+    let password_check = document.getElementById('pwd_check');
+    function verifyPass() {
+        const pass_warning = document.getElementById('pass-warning');
+        if (password.value !== password_check.value) {
+            pass_warning.style.display = 'block';
+            document.getElementById('btn-submit').disabled = true
+        } else {
+            pass_warning.style.display = 'none'
+            document.getElementById('btn-signup').disabled = false
+        }
+    }
+    password_check.addEventListener('input',  verifyPass);
+</script>
+{% endblock %}
