@@ -1,35 +1,43 @@
 {% extends "entry/base.html" %}
 
-    {% block title %}Faça seu login {% endblock %}
+{% block title %}Faça seu login {% endblock %}
+
+{% block head %}
+<style>
+    main#main {
+        height: 500px;
+    }
+</style>
+{% endblock %}
 
 {% block content %}
-    <main class="container" id="main">
-        <div id="div-img"></div>
-        <section class="form-conteiner">
-            <div id="errors">
-                {% set messages = get_flashed_messages() %}
-                {% if messages %}
-                    {% for message in messages %}
-                        <p>{{ message }}</p>
-                    {% endfor %}
-                {% endif %}
+<main class="container" id="main">
+    <div id="div-img"></div>
+    <section class="form-conteiner">
+        <div id="errors">
+            {% set messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+            <p>{{ message }}</p>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <form action="{{ url_for('entry.login')}}" method="post">
+            {{ form.csrf_token }}
+            <div>
+                {{ form.email.label }}
+                {{ form.email }}
             </div>
-            <form action="{{ url_for('entry.login')}}" method="post">
-                {{ form.csrf_token }}
-                <div>
-                    {{ form.email.label }}
-                    {{ form.email }}
-                </div>
-                <div>
-                    {{ form.pwd.label }}
-                    {{ form.pwd }}
-                </div>
-                <button type="submit" id="btn-login">Entrar</button>
-                
-                <a href="{{ url_for('entry.signup')}}" id="signup-a">Cadastre-se</a>
-                <a href="#" id="forget-a">Esqueci a senha</a>
-                
-            </form>
-        </section>
-    </main>
+            <div>
+                {{ form.pwd.label }}
+                {{ form.pwd }}
+            </div>
+            <button type="submit" id="btn-login">Entrar</button>
+
+            <a href="{{ url_for('entry.signup')}}" id="signup-a">Cadastre-se</a>
+            <a href="#" id="forget-a">Esqueci a senha</a>
+
+        </form>
+    </section>
+</main>
 {% endblock %}
