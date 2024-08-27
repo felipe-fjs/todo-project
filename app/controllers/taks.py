@@ -1,7 +1,7 @@
 from app import db
 from app.models.task import TaskForm, Task
 from app.controllers.decorators import email_confirmation_required
-from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
+from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify, json
 from flask_login import login_required, current_user
 
 task_route = Blueprint("tasks", __name__)
@@ -25,11 +25,8 @@ OK        * /tasks/id/delete (DELETE) - realizar exclusão de tarefa;;
 @task_route.route('/home')
 @login_required
 def home():
-    tasks_pendent = Task.query.filter_by(user_id=current_user.id, pendent=1).all()
-    tasks_completed = Task.query.filter_by(user_id=current_user.id, pendent=0).all()
-    print(tasks_pendent)
-    print(tasks_completed)
-    return render_template('tasks/read.html', tasks=tasks_pendent)
+    tasks = Task.query.filter_by(user_id=current_user.id).all()    
+    return render_template('tasks/read.html', tasks=tasks)
 
 
 @task_route.route('/<id>', methods=['PUT'])

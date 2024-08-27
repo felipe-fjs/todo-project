@@ -3,6 +3,16 @@
 
 {% block head %}
     <style>
+        span#main-head {
+            display: block;
+            margin: 5px 0 ;
+            padding: 5px;
+            border: 1px solid lightgray;
+            border-radius: 10px;
+        }
+        span#span-filtros {
+            float: right;
+        }
         #new_task {
             position: absolute;
             bottom: 10px;
@@ -17,6 +27,13 @@
         #new_task:hover {
             box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.75);
         }
+        .completed {
+            display: none;
+            background-color: rgba(49, 166, 72, 0.753);
+        }
+        .completed button {
+            background-color: ;
+        }
     </style>
 {% endblock %}
 
@@ -24,11 +41,19 @@
 <main class="container">
     <div class="row justify-content-center">
         <div class="bg-tasks" onclick>
-            <h1>Tarefas existentes</h1>
+            <span id="main-head">
+                <h1 style="display: inline;">Tarefas</h1>
+                <span id="span-filtros">
+                    <button class="btn btn-warning" type="button" onclick="tasksPendents()">Pendentes</button>
+                    <button class="btn btn-success" type="button" onclick="tasksCompleteds()">Concluídas</button>
+                </span>
+            </span>
             {% if tasks %}
             {% for task in tasks %}
 
-            <div class="task" onclick="window.location.href = `{{url_for('tasks.read_task', id=task.id)}}`">
+            <div class="task {% if task.pendent %}pendent{% else %}completed{% endif %}" 
+            
+            onclick="window.location.href = `{{url_for('tasks.read_task', id=task.id)}}`">
                 <a href="{{ url_for('tasks.read_task', id=task.id)}}">{{ task.title }} </a>
                 <button type="button" onclick="completed('{{task.id}}', `{{url_for('tasks.completed', id=task.id)}}`)">
                     <span class="material-symbols-outlined">check</span>
@@ -58,5 +83,23 @@
 
             })
     } 
+    const task_completed = document.querySelectorAll('.completed')
+    const task_pendent = document.querySelectorAll('.pendent')
+    function tasksCompleteds (){
+        task_completed.forEach(task => {
+            task.style.display = 'block'
+        })
+        task_pendent.forEach(task => {
+            task.style.display = 'none'
+        })
+    }
+    function tasksPendents (){
+        task_completed.forEach(task => {
+            task.style.display = 'none'
+        })
+        task_pendent.forEach(task => {
+            task.style.display = 'block'
+        })
+    }
 </script>
 {% endblock %}
