@@ -31,9 +31,6 @@
             display: none;
             background-color: rgba(49, 166, 72, 0.753);
         }
-        .completed button {
-            background-color: ;
-        }
     </style>
 {% endblock %}
 
@@ -55,9 +52,11 @@
             
             onclick="window.location.href = `{{url_for('tasks.read_task', id=task.id)}}`">
                 <a href="{{ url_for('tasks.read_task', id=task.id)}}">{{ task.title }} </a>
+                {% if task.pendent %}
                 <button type="button" onclick="completed('{{task.id}}', `{{url_for('tasks.completed', id=task.id)}}`)">
                     <span class="material-symbols-outlined">check</span>
                 </button>
+                {% endif %}
             </div>
             {% endfor %}
 
