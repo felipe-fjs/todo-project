@@ -22,16 +22,17 @@ OK        * /tasks/id/delete (DELETE) - realizar exclusão de tarefa;;
 """
 
 
-@task_route.route('/home')
+@task_route.route('/home/')
 @login_required
 def home():
-    page = request.args.get('page', default=1, type=int)
+    page_pendent = request.args.get('pendent_page', default=1, type=int)
+    page_completed = request.args.get('completed_page', default=1, type=int)
     per_page = 9
 
-    tasks = Task.query.filter_by(user_id=current_user.id, pendent=True).paginate(page=page, per_page=per_page)
-    pages = tasks.pages
-    
-    return render_template('tasks/read.html', tasks=tasks)
+    tasks_pendent = Task.query.filter_by(user_id=current_user.id, pendent=True).paginate(page=page_pendent, per_page=per_page)
+    tasks_completed = Task.query.filter_by(user_id=current_user.id, pendent=False).paginate(page=page_completed, per_page=per_page)
+
+    return render_template('tasks/read.html', tasks_pendent=tasks_pendent, tasks_completed=tasks_completed)
 
 
 @task_route.route('/<id>', methods=['PUT'])
