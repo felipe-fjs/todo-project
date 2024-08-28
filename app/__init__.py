@@ -39,5 +39,5 @@ login_manager.login_message = 'Você precisa está logado para acessar o sistema
 from app.controllers.entry import entry_route
 app.register_blueprint(entry_route)
 
-from app.controllers.taks import task_route
+from app.controllers.tasks import task_route
 app.register_blueprint(task_route, url_prefix='/task')
