@@ -1,7 +1,13 @@
 {% extends "tasks/base.html" %}
 {% block title %}Tarefas{% endblock %}
 
-{% block head %}    {% endblock %}
+{% block head %}
+    <style>
+        .completed, .completed_page {
+            display: none;
+        }
+    </style>
+{% endblock %}
 
 {% block content %}
 <main class="container">
@@ -14,32 +20,65 @@
                     <button class="btn btn-success" type="button" onclick="tasksCompleteds()">Concluídas</button>
                 </span>
             </span>
-            {% if tasks %}
-            {% for task in tasks %}
+            <!-- BLOCO QUE CARREGARÁ AS TAREFAS PENDENTES -->
+            {% if tasks_pendent %}
+                {% for task in tasks_pendent %}
+                    <div class="task pendent"
+                        onclick="window.location.href = `{{url_for('tasks.read_task', id=task.id)}}`"
+                        title="abrir tarefa">
 
-            <div class="task {% if task.pendent %}pendent{% else %}completed{% endif %}" 
-            
-            onclick="window.location.href = `{{url_for('tasks.read_task', id=task.id)}}`">
-                <a href="{{ url_for('tasks.read_task', id=task.id)}}">{{ task.title }} </a>
-                {% if task.pendent %}
-                <button type="button" onclick="completed('{{task.id}}', `{{url_for('tasks.completed', id=task.id)}}`)">
-                    <span class="material-symbols-outlined">check</span>
-                </button>
-                {% endif %}
-            </div>
-            {% endfor %}
+                        <a href="{{ url_for('tasks.read_task', id=task.id)}}">{{ task.title }} </a>
+                        
+                        <button  onclick="completed('{{task.id}}', `{{url_for('tasks.completed', id=task.id)}}`)" title="completar tarefa">
+                            <span class="material-symbols-outlined">check</span>
+                        </button>
+                        
+                    </div>
+                {% endfor %}
 
             {% else %}
-            <h2 class="alert alert-warning">Não há tarefas cadastradas, crie novas em <a
-                    href="{{ url_for('tasks.create')}}">Criar tarefas</a></h2>
+                <h2 class="alert alert-warning">Não há tarefas cadastradas, crie novas em 
+                    <a href="{{ url_for('tasks.create')}}">Criar tarefas</a>
+                </h2>
             {% endif %}
-            <span id="new_task" class="material-symbols-outlined btn btn-primary" title="Adicionar nova tarefa"
-            onclick='location.href = `{{url_for("tasks.create")}}`'>add_circle</span>
-            <div id="pages" title="shift + rolagem para ir à esquerda ou direita"> <!-- Div para exibição das páginas existentes de tarefas do usuário -->
-                {% if tasks %}
-                    {% for page in range(1, tasks.pages) %}
-                        <a class="page" href="{{ url_for('tasks.home', page=page)}}">{{ page }}</a>
+
+            <!-- BLOCO QUE CARREGARÁ AS TAREFAS CONCLUÍDAS -->
+            {% if tasks_completed %}
+                {% for task in tasks_completed %}
+                    <div class="task completed"
+                        onclick="window.location.href = `{{url_for('tasks.read_task', id=task.id)}}`"
+                        title="abrir tarefa">
+
+                        <a href="{{ url_for('tasks.read_task', id=task.id)}}">{{ task.title }} </a>
+                    </div>
+                {% endfor %}
+
+            {% else %}
+                <h2 class="alert alert-warning">Ainda não há tarefas concluídas!</h2>
+            {% endif %}
+
+            <span id="new_task" class="material-symbols-outlined btn btn-primary" 
+                title="Adicionar nova tarefa"
+                onclick='location.href = `{{url_for("tasks.create")}}`'>
+                    add_circle
+            </span>
+
+            <!-- Div para exibição das páginas existentes de tarefas do usuário -->
+            <div id="pages" title="shift + rolagem para ir à esquerda ou direita"> 
+                <!-- Carrega as páginas disponíveis para as tarefas pendentes -->
+                {% if tasks_pendent.pages >= 1 %}
+                    {% for page in range(1, tasks_pendent.pages + 1) %}
+                        <a class="page pendent_page" href="{{ url_for('tasks.home', pendent_page=page)}}">{{ page }}</a>
                     {% endfor %}
+                {% endif %}
+
+                <!-- Carrega as páginas disponíveis para as tarefas concluídas -->
+                {% if tasks_completed.pages >= 1 %}
+                    {% for page in range(1, tasks_completed.pages + 1) %}
+                        <a class="page completed_page" href="{{ url_for('tasks.home', completed_page=page)}}">{{ page }}</a>
+                    {% endfor %}
+                {% else %}
+                    
                 {% endif %}
             </div>
         </div>
@@ -60,6 +99,8 @@
     } 
     const task_completed = document.querySelectorAll('.completed')
     const task_pendent = document.querySelectorAll('.pendent')
+    const page_pendent = document.querySelectorAll('.pendent_page')
+    const page_completed = document.querySelectorAll('.completed_page')
     function tasksCompleteds (){
         task_completed.forEach(task => {
             task.style.display = 'block'
@@ -67,6 +108,13 @@
         task_pendent.forEach(task => {
             task.style.display = 'none'
         })
+        page_completed.forEach(page => {
+            page.style.display = 'initial'
+        })
+        page_pendent.forEach(page => {
+            page.style.display = 'none'
+        })
+
     }
     function tasksPendents (){
         task_completed.forEach(task => {
@@ -75,6 +123,21 @@
         task_pendent.forEach(task => {
             task.style.display = 'block'
         })
+        page_completed.forEach(page => {
+            page.style.display = 'none'
+        })
+        page_pendent.forEach(page => {
+            page.style.display = 'initial'
+        })
+    }
+    window.onload = () => {
+        const url = new URLSearchParams(window.location.search);
+
+        if (url.has("completed_page")) {
+            tasksCompleteds();
+        } else {
+            tasksPendents();
+        }
     }
 </script>
 {% endblock %}
