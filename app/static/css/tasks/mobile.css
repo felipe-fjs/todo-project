@@ -130,3 +130,62 @@ main .bg-tasks {
 .delete-check {
   display: initial;
 }
+
+/* ESTILOS DA PAGINAÇÂO NA HOME */
+.btn {
+  transition: box-shadow .3s;
+}
+.btn:hover {
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.4);
+}
+span#main-head {
+  display: block;
+  margin: 5px 0 ;
+  padding: 5px;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+}
+span#span-filtros {
+  float: right;
+}
+#new_task {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+
+  font-size: 36px;
+  padding: 5px;
+  border-radius: 50%;
+
+  transition: box-shadow .5s;
+}
+#new_task:hover {
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.75);
+}
+.completed {
+  display: none;
+  background-color: rgba(49, 166, 72, 0.753);
+}
+#pages {
+  overflow-x: auto;
+  scrollbar-width: none;
+  overflow-y: hidden;
+  white-space: nowrap;
+
+  width: 245px;
+  padding: 3px;
+  border: 1px solid black;
+  border-radius: 3px;
+}
+#pages > .page {
+  color: black;
+  text-decoration: none;
+  padding:  0 5px ;
+  border: 0.2px solid rgba(0, 0, 0, 0.3);
+  border-radius: 2px;
+
+  transition: box-shadow .5s;
+}
+#pages > .page:hover {
+  box-shadow: 1px 1px 2px black;
+}

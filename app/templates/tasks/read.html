@@ -1,38 +1,7 @@
 {% extends "tasks/base.html" %}
 {% block title %}Tarefas{% endblock %}
 
-{% block head %}
-    <style>
-        span#main-head {
-            display: block;
-            margin: 5px 0 ;
-            padding: 5px;
-            border: 1px solid lightgray;
-            border-radius: 10px;
-        }
-        span#span-filtros {
-            float: right;
-        }
-        #new_task {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-
-            font-size: 36px;
-            padding: 5px;
-            border-radius: 50%;
-
-            transition: box-shadow .5s;
-        }
-        #new_task:hover {
-            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.75);
-        }
-        .completed {
-            display: none;
-            background-color: rgba(49, 166, 72, 0.753);
-        }
-    </style>
-{% endblock %}
+{% block head %}    {% endblock %}
 
 {% block content %}
 <main class="container">
@@ -66,6 +35,13 @@
             {% endif %}
             <span id="new_task" class="material-symbols-outlined btn btn-primary" title="Adicionar nova tarefa"
             onclick='location.href = `{{url_for("tasks.create")}}`'>add_circle</span>
+            <div id="pages" title="shift + rolagem para ir à esquerda ou direita"> <!-- Div para exibição das páginas existentes de tarefas do usuário -->
+                {% if tasks %}
+                    {% for page in range(1, tasks.pages) %}
+                        <a class="page" href="{{ url_for('tasks.home', page=page)}}">{{ page }}</a>
+                    {% endfor %}
+                {% endif %}
+            </div>
         </div>
     </div>
 </main>
