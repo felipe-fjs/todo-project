@@ -10,15 +10,15 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/tasks/media-queries.css')}}">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
   <style>
-    span#powered {
-      position: absolute;
-      bottom: 10px;
-      left: 10px;
-
-      padding: 5px;
-      background-color: white;
-      border: 0.5px black solid;
-      border-radius: 2rem;
+    #powered {
+      color: purple;
+      font-weight: bold;
+      transition: font-size .5s, text-decoration .5s;
+    }
+    #powered:hover {
+      text-decoration: underline;
+      font-size: 18px;
+      color: purple;
     }
   </style>
   {% block head %} {% endblock %}
@@ -41,6 +41,9 @@
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('tasks.create')}}">Criar tarefa</a>
           </li>
+          <li class="nav-item">
+            <a id="powered" class="nav-link" href="https://github.com/felipe-fjs" target="_blank">Feito Por Felipe Joaquim</a>
+          </li>
           
           {% if not current_user.email_confirmed %}
             <li class="nav-item" id="confirm-email">
@@ -57,7 +60,6 @@
   </nav>
 
   {% block content %} {% endblock %}
-  <span id="powered">Powered by <a href="https://github.com/felipe-fjs" target="_blank">Felipe Joaquim</a></span>
   <script src="../../static/js/bootstrap.bundle.min.js"></script>
 </body>
 
